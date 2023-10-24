@@ -1,0 +1,72 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "LazyLoot/5.1.0.3": {
+        "dependencies": {
+          "DalamudPackager": "2.1.10",
+          "ECommons": "2.0.0.7",
+          "HtmlAgilityPack": "1.11.46",
+          "PunishLib": "1.0.1.4"
+        },
+        "runtime": {
+          "LazyLoot.dll": {}
+        }
+      },
+      "DalamudPackager/2.1.10": {},
+      "HtmlAgilityPack/1.11.46": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.46.0",
+            "fileVersion": "1.11.46.0"
+          }
+        }
+      },
+      "ECommons/2.0.0.7": {
+        "runtime": {
+          "ECommons.dll": {}
+        }
+      },
+      "PunishLib/1.0.1.4": {
+        "runtime": {
+          "PunishLib.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LazyLoot/5.1.0.3": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DalamudPackager/2.1.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-S6NrvvOnLgT4GDdgwuKVJjbFo+8ZEj+JsEYk9ojjOR/MMfv1dIFpT8aRJQfI24rtDcw1uF+GnSSMN4WW1yt7fw==",
+      "path": "dalamudpackager/2.1.10",
+      "hashPath": "dalamudpackager.2.1.10.nupkg.sha512"
+    },
+    "HtmlAgilityPack/1.11.46": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dLMn4EVfJBHWmWK4Uh0XGD76FPLHI0qr2Tm0s1m/xmgiHb1JUb9zB8AzO8HtrkBBlMN6JfCUBYddhqC0hZNR+g==",
+      "path": "htmlagilitypack/1.11.46",
+      "hashPath": "htmlagilitypack.1.11.46.nupkg.sha512"
+    },
+    "ECommons/2.0.0.7": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PunishLib/1.0.1.4": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

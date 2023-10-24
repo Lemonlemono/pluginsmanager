@@ -1,0 +1,14 @@
+[
+    {
+        "Url": "https://love.puni.sh/ment.json"
+    },
+    {
+        "Url": "https://raw.githubusercontent.com/daemitus/MyDalamudPlugins/master/pluginmaster.json"
+    },
+    {
+        "Url": "https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json"
+    },
+    {
+        "Url": "https://raw.githubusercontent.com/ArchiDog1998/Dalamud_Plugins/main/pluginmaster.json"
+    }
+]

@@ -1,0 +1,454 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ECommons</name>
+    </assembly>
+    <members>
+        <member name="T:ECommons.Automation.Chat">
+            <summary>
+            A class containing chat functionality
+            </summary>
+        </member>
+        <member name="M:ECommons.Automation.Chat.SendMessageUnsafe(System.Byte[])">
+            <summary>
+            <para>
+            Send a given message to the chat box. <b>This can send chat to the server.</b>
+            </para>
+            <para>
+            <b>This method is unsafe.</b> This method does no checking on your input and
+            may send content to the server that the normal client could not. You must
+            verify what you're sending and handle content and length to properly use
+            this.
+            </para>
+            </summary>
+            <param name="message">Message to send</param>
+            <exception cref="T:System.InvalidOperationException">If the signature for this function could not be found</exception>
+        </member>
+        <member name="M:ECommons.Automation.Chat.SendMessage(System.String)">
+            <summary>
+            <para>
+            Send a given message to the chat box. <b>This can send chat to the server.</b>
+            </para>
+            <para>
+            This method is slightly less unsafe than <see cref="M:ECommons.Automation.Chat.SendMessageUnsafe(System.Byte[])"/>. It
+            will throw exceptions for certain inputs that the client can't normally send,
+            but it is still possible to make mistakes. Use with caution.
+            </para>
+            </summary>
+            <param name="message">message to send</param>
+            <exception cref="T:System.ArgumentException">If <paramref name="message"/> is empty, longer than 500 bytes in UTF-8, or contains invalid characters.</exception>
+            <exception cref="T:System.InvalidOperationException">If the signature for this function could not be found</exception>
+        </member>
+        <member name="M:ECommons.Automation.Chat.SanitiseText(System.String)">
+            <summary>
+            <para>
+            Sanitises a string by removing any invalid input.
+            </para>
+            <para>
+            The result of this method is safe to use with
+            <see cref="M:ECommons.Automation.Chat.SendMessage(System.String)"/>, provided that it is not empty or too
+            long.
+            </para>
+            </summary>
+            <param name="text">text to sanitise</param>
+            <returns>sanitised text</returns>
+            <exception cref="T:System.InvalidOperationException">If the signature for this function could not be found</exception>
+        </member>
+        <member name="T:ECommons.CircularBuffers.CircularBuffer`1">
+            <inheritdoc/>
+            <summary>
+            Circular buffer.
+            
+            When writing to a full buffer:
+            PushBack -> removes this[0] / Front()
+            PushFront -> removes this[Size-1] / Back()
+            
+            this implementation is inspired by
+            http://www.boost.org/doc/libs/1_53_0/libs/circular_buffer/doc/circular_buffer.html
+            because I liked their interface.
+            </summary>
+        </member>
+        <member name="F:ECommons.CircularBuffers.CircularBuffer`1._start">
+            <summary>
+            The _start. Index of the first element in buffer.
+            </summary>
+        </member>
+        <member name="F:ECommons.CircularBuffers.CircularBuffer`1._end">
+            <summary>
+            The _end. Index after the last element in the buffer.
+            </summary>
+        </member>
+        <member name="F:ECommons.CircularBuffers.CircularBuffer`1._size">
+            <summary>
+            The _size. Buffer size.
+            </summary>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ECommons.CircularBuffers.CircularBuffer`1"/> class.
+            
+            </summary>
+            <param name='capacity'>
+            Buffer capacity. Must be positive.
+            </param>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.#ctor(System.Int32,`0[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:ECommons.CircularBuffers.CircularBuffer`1"/> class.
+            
+            </summary>
+            <param name='capacity'>
+            Buffer capacity. Must be positive.
+            </param>
+            <param name='items'>
+            Items to fill buffer with. Items length must be less than capacity.
+            Suggestion: use Skip(x).Take(y).ToArray() to build this argument from
+            any enumerable.
+            </param>
+        </member>
+        <member name="P:ECommons.CircularBuffers.CircularBuffer`1.Capacity">
+            <summary>
+            Maximum capacity of the buffer. Elements pushed into the buffer after
+            maximum capacity is reached (IsFull = true), will remove an element.
+            </summary>
+        </member>
+        <member name="P:ECommons.CircularBuffers.CircularBuffer`1.IsFull">
+            <summary>
+            Boolean indicating if Circular is at full capacity.
+            Adding more elements when the buffer is full will
+            cause elements to be removed from the other end
+            of the buffer.
+            </summary>
+        </member>
+        <member name="P:ECommons.CircularBuffers.CircularBuffer`1.IsEmpty">
+            <summary>
+            True if has no elements.
+            </summary>
+        </member>
+        <member name="P:ECommons.CircularBuffers.CircularBuffer`1.Size">
+            <summary>
+            Current buffer size (the number of elements that the buffer has).
+            </summary>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.Front">
+            <summary>
+            Element at the front of the buffer - this[0].
+            </summary>
+            <returns>The value of the element of type T at the front of the buffer.</returns>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.Back">
+            <summary>
+            Element at the back of the buffer - this[Size - 1].
+            </summary>
+            <returns>The value of the element of type T at the back of the buffer.</returns>
+        </member>
+        <member name="P:ECommons.CircularBuffers.CircularBuffer`1.Item(System.Int32)">
+            <summary>
+            Index access to elements in buffer.
+            Index does not loop around like when adding elements,
+            valid interval is [0;Size[
+            </summary>
+            <param name="index">Index of element to access.</param>
+            <exception cref="T:System.IndexOutOfRangeException">Thrown when index is outside of [; Size[ interval.</exception>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.PushBack(`0)">
+            <summary>
+            Pushes a new element to the back of the buffer. Back()/this[Size-1]
+            will now return this element.
+            
+            When the buffer is full, the element at Front()/this[0] will be 
+            popped to allow for this new element to fit.
+            </summary>
+            <param name="item">Item to push to the back of the buffer</param>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.PushFront(`0)">
+            <summary>
+            Pushes a new element to the front of the buffer. Front()/this[0]
+            will now return this element.
+            
+            When the buffer is full, the element at Back()/this[Size-1] will be 
+            popped to allow for this new element to fit.
+            </summary>
+            <param name="item">Item to push to the front of the buffer</param>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.PopBack">
+            <summary>
+            Removes the element at the back of the buffer. Decreasing the 
+            Buffer size by 1.
+            </summary>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.PopFront">
+            <summary>
+            Removes the element at the front of the buffer. Decreasing the 
+            Buffer size by 1.
+            </summary>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.Clear">
+            <summary>
+            Clears the contents of the array. Size = 0, Capacity is unchanged.
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.ToArray">
+            <summary>
+            Copies the buffer contents to an array, according to the logical
+            contents of the buffer (i.e. independent of the internal 
+            order/contents)
+            </summary>
+            <returns>A new array with a copy of the buffer contents.</returns>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.ToArraySegments">
+             <summary>
+             Get the contents of the buffer as 2 ArraySegments.
+             Respects the logical contents of the buffer, where
+             each segment and items in each segment are ordered
+             according to insertion.
+            
+             Fast: does not copy the array elements.
+             Useful for methods like <c>Send(IList&lt;ArraySegment&lt;Byte&gt;&gt;)</c>.
+             
+             <remarks>Segments may be empty.</remarks>
+             </summary>
+             <returns>An IList with 2 segments corresponding to the buffer content.</returns>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through this buffer.
+            </summary>
+            <returns>An enumerator that can be used to iterate this collection.</returns>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.Increment(System.Int32@)">
+            <summary>
+            Increments the provided index variable by one, wrapping
+            around if necessary.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.Decrement(System.Int32@)">
+            <summary>
+            Decrements the provided index variable by one, wrapping
+            around if necessary.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="M:ECommons.CircularBuffers.CircularBuffer`1.InternalIndex(System.Int32)">
+            <summary>
+            Converts the index in the argument to an index in <code>_buffer</code>
+            </summary>
+            <returns>
+            The transformed index.
+            </returns>
+            <param name='index'>
+            External index.
+            </param>
+        </member>
+        <member name="T:ECommons.ExcelResolver`1">
+            <summary>
+            This object resolves a rowID within an Excel sheet.
+            </summary>
+            <typeparam name="T">The type of Lumina sheet to resolve.</typeparam>
+        </member>
+        <member name="M:ECommons.ExcelResolver`1.#ctor(System.UInt32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ECommons.ExcelResolver`1"/> class.
+            </summary>
+            <param name="id">The ID of the classJob.</param>
+        </member>
+        <member name="P:ECommons.ExcelResolver`1.Id">
+            <summary>
+            Gets the ID to be resolved.
+            </summary>
+        </member>
+        <member name="P:ECommons.ExcelResolver`1.GameData">
+            <summary>
+            Gets GameData linked to this excel row.
+            </summary>
+        </member>
+        <member name="M:ECommons.ExcelResolver`1.GetWithLanguage(Dalamud.ClientLanguage)">
+            <summary>
+            Gets GameData linked to this excel row with the specified language.
+            </summary>
+            <param name="language">The language.</param>
+            <returns>The ExcelRow in the specified language.</returns>
+        </member>
+        <member name="F:ECommons.Gamepad.GamePad.ControllerButtons">
+            <summary>
+            Dictionary containing a mapping of <see cref="T:Dalamud.Game.ClientState.GamePad.GamepadButtons"/> to Playstation / Xbox button names.
+            </summary>
+        </member>
+        <member name="M:ECommons.Gamepad.GamePad.IsControllerEnabled">
+            <summary>
+            Gets the "Enable gamepad" option from FFXIV to indicate if the gamepad has been enabled in FFXIV.
+            </summary>
+            <returns>FFXIV is using a controller.</returns>
+        </member>
+        <member name="M:ECommons.Gamepad.GamePad.IsButtonPressed(Dalamud.Game.ClientState.GamePad.GamepadButtons)">
+            <summary>
+            Checks if a controller button has been pressed. Only true on the first frame it has been pressed.
+            </summary>
+            <param name="button">Button to check.</param>
+            <returns>Button has just been pressed.</returns>
+        </member>
+        <member name="M:ECommons.Gamepad.GamePad.IsButtonHeld(Dalamud.Game.ClientState.GamePad.GamepadButtons)">
+            <summary>
+            Checks if a controller button is currently held. Returns true for every frame it's held down.
+            </summary>
+            <param name="button">Button to check.</param>
+            <returns>Button is being held down.</returns>
+        </member>
+        <member name="M:ECommons.Gamepad.GamePad.IsButtonJustReleased(Dalamud.Game.ClientState.GamePad.GamepadButtons)">
+            <summary>
+            Checks if a controller button has just been released. Only true on the first frame after releasing.
+            </summary>
+            <param name="button">Button to check.</param>
+            <returns>Button has just been released.</returns>
+        </member>
+        <member name="M:ECommons.Hooks.ActionEffect.Init(System.Action{System.UInt32,System.UInt16,ECommons.Hooks.ActionEffectTypes.ActionEffectType,System.UInt32,System.UInt64,System.UInt32},System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="fullParamsCallback">uint ActionID, ushort animationID, ActionEffectType type, uint sourceID, ulong targetOID, uint damage</param>
+            <param name="logging"></param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:ECommons.Interop.WindowFunctions.ApplicationIsActivated">
+            <summary>Returns true if the current application has focus, false otherwise</summary>
+        </member>
+        <member name="T:ECommons.SplatoonAPI.ElementType">
+            <summary>
+            0: Object at fixed coordinates |
+            1: Object relative to actor position | 
+            2: Line between two fixed coordinates | 
+            3: Line relative to object pos | 
+            4: Cone relative to object position |
+            5: Cone at fixed coordinates
+            </summary>
+        </member>
+        <member name="T:ECommons.SplatoonAPI.RefActorComparisonType">
+            <summary>
+            0: Name |
+            1: Model ID |
+            2: Object ID |
+            3: Data ID | 
+            4: NPC ID |
+            5: Placeholder |
+            6: Name ID | 
+            7: VFX Path
+            </summary>
+        </member>
+        <member name="T:ECommons.SplatoonAPI.RefActorType">
+            0: Game object with specific name |
+            1: Self |
+            2: Targeted enemy
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.SetOnConnect(System.Action)">
+            <summary>
+            Executed when connected or reconnected to Splatoon. Create and recreate your elements here. Once this event is fired, all already created elements become invalid.
+            </summary>
+            <param name="action">Action to be executed on connect</param>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.IsConnected">
+            <returns>Whether currently connected to Splatoon</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.AddDynamicElement(System.String,ECommons.SplatoonAPI.Element,System.Int64[])">
+            <summary>
+            Add persistent dynamic element.
+            </summary>
+            <param name="name">Non-unique namespace of the element</param>
+            <param name="e">Element or array of elements</param>
+            <param name="DestroyCondition">Destroy condition or array of them where: -2 is destroy on zone change; -1 is destroy on combat end; 0 is never destroy; any other number - system tick at which it should be destroyed, where current system tick can be obtained with Environment.TickCount64 parameter.</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.AddDynamicElement(System.String,ECommons.SplatoonAPI.Element,System.Int64)">
+            <summary>
+            Add persistent dynamic element.
+            </summary>
+            <param name="name">Non-unique namespace of the element</param>
+            <param name="e">Element or array of elements</param>
+            <param name="DestroyCondition">Destroy condition or array of them where: -2 is destroy on zone change; -1 is destroy on combat end; 0 is never destroy; any other number - system tick at which it should be destroyed, where current system tick can be obtained with Environment.TickCount64 parameter.</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.AddDynamicElements(System.String,ECommons.SplatoonAPI.Element[],System.Int64)">
+            <summary>
+            Add persistent dynamic element.
+            </summary>
+            <param name="name">Non-unique namespace of the element</param>
+            <param name="e">Element or array of elements</param>
+            <param name="DestroyCondition">Destroy condition or array of them where: -2 is destroy on zone change; -1 is destroy on combat end; 0 is never destroy; any other number - system tick at which it should be destroyed, where current system tick can be obtained with Environment.TickCount64 parameter.</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.AddDynamicElement(System.String,ECommons.SplatoonAPI.Element,System.Single[])">
+            <summary>
+            Add persistent dynamic element.
+            </summary>
+            <param name="name">Non-unique namespace of the element</param>
+            <param name="e">Element or array of elements</param>
+            <param name="DestroyCondition">Destroy condition or array of them where: -2 is destroy on zone change; -1 is destroy on combat end; 0 is never destroy; any other number - amount of seconds before element will be destroyed from the moment of it's addition.</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.AddDynamicElement(System.String,ECommons.SplatoonAPI.Element,System.Single)">
+            <summary>
+            Add persistent dynamic element.
+            </summary>
+            <param name="name">Non-unique namespace of the element</param>
+            <param name="e">Element or array of elements</param>
+            <param name="DestroyCondition">Destroy condition or array of them where: -2 is destroy on zone change; -1 is destroy on combat end; 0 is never destroy; any other number - amount of seconds before element will be destroyed from the moment of it's addition.</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.AddDynamicElements(System.String,ECommons.SplatoonAPI.Element[],System.Single)">
+            <summary>
+            Add persistent dynamic element.
+            </summary>
+            <param name="name">Non-unique namespace of the element</param>
+            <param name="e">Element or array of elements</param>
+            <param name="DestroyCondition">Destroy condition or array of them where: -2 is destroy on zone change; -1 is destroy on combat end; 0 is never destroy; any other number - amount of seconds before element will be destroyed from the moment of it's addition.</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.AddDynamicElements(System.String,ECommons.SplatoonAPI.Element[],System.Single[])">
+            <summary>
+            Add persistent dynamic element.
+            </summary>
+            <param name="name">Non-unique namespace of the element</param>
+            <param name="e">Element or array of elements</param>
+            <param name="DestroyConditionF">Destroy condition or array of them where: -2 is destroy on zone change; -1 is destroy on combat end; 0 is never destroy; any other number - amount of seconds before element will be destroyed from the moment of it's addition.</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.AddDynamicElements(System.String,ECommons.SplatoonAPI.Element[],System.Int64[])">
+            <summary>
+            Add persistent dynamic element.
+            </summary>
+            <param name="name">Non-unique namespace of the element</param>
+            <param name="e">Element or array of elements</param>
+            <param name="DestroyCondition">Destroy condition or array of them where: -2 is destroy on zone change; -1 is destroy on combat end; 0 is never destroy; any other number - system tick at which it should be destroyed, where current system tick can be obtained with Environment.TickCount64 parameter.</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.DisplayOnce(ECommons.SplatoonAPI.Element)">
+            <summary>
+            Display certain element in next frame only. 
+            </summary>
+            <param name="e">Element to display</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.RemoveDynamicElements(System.String)">
+            <summary>
+            Removes dynamic elements with specific name. If more than one element was registered under certain name, all of these elements will be removed.
+            </summary>
+            <param name="name">Name of element(s)</param>
+            <returns>Whether operation was successful</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.DecodeElement(System.String)">
+            <summary>
+            Attempts to decode element that was encoded into JSON.
+            </summary>
+            <param name="input">Input string, you can export it from Splatoon. Make sure element is enabled!</param>
+            <returns>Element that is ready for use or null if failed</returns>
+        </member>
+        <member name="M:ECommons.SplatoonAPI.Splatoon.DecodeLayout(System.String)">
+            <summary>
+            Work in progress on this function
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
