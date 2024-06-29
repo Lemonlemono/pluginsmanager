@@ -51,14 +51,16 @@ class myGui(Tk):
         self.treeview.configure(xscrollcommand = self.verscrlbar.set)
 
         for row in DATA:
-            self.treeview.insert("", "end", values=(row["Name"], row["AssemblyVersion"], row["Status"], row["Date"]))
+            self.treeview.insert("", "end", values=(row["Name"], row["AssemblyVersion"], row["Status"], row["Date"], row["DownloadLinkInstall"]))
 
         def selectItem(a):#  Select item by clicking treeview
             curItem = self.treeview.focus()
             # print(self.treeview.item(curItem))
             itemNameTemp = self.treeview.item(curItem)
             if itemNameTemp['values'] != "":
-                self.selectedItem = str(itemNameTemp['values'][0])
+                # self.selectedItem = str(itemNameTemp['values'][0])
+                self.selectedItem = {"Name": str(itemNameTemp['values'][0]),"DownloadLinkInstall": str(itemNameTemp['values'][4])}
+        
         
         self.treeview.bind('<ButtonRelease-1>', selectItem)
         self.textBox = tk.Entry(self,width=12,bg="#bfbfbf") 
@@ -116,8 +118,8 @@ class myGui(Tk):
             self.refreshTree()
 
     def removePlugin(self):
-            modiflyWithName("json/avaliablePlugins.json","Name",self.selectedItem,"Status","/")
-            popPlugin(str(self.selectedItem))
+            modiflyWithKey("json/avaliablePlugins.json","DownloadLinkInstall",self.selectedItem.get('DownloadLinkInstall',"NULL"),"Status","/")
+            popPluginTest(self.selectedItem)
             self.refreshTree()
 
     def checkAndRefresh(self): 
@@ -125,6 +127,7 @@ class myGui(Tk):
             self.refreshTree()
 
     def updateAndRefresh(self):
+            print("Starting Update......")
             updateAll()
             self.refreshTree()
 
@@ -133,7 +136,7 @@ class myGui(Tk):
             for item in self.treeview.get_children():
                 self.treeview.delete(item)
             for row in DATA:
-                self.treeview.insert("", "end", values=(row["Name"], row["AssemblyVersion"], row["Status"], row["Date"]))
+                self.treeview.insert("", "end", values=(row["Name"], row["AssemblyVersion"], row["Status"], row["Date"], row["DownloadLinkInstall"]))
 
 # if __name__ == "__main__":
 #     app = myGui()

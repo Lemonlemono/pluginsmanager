@@ -6,7 +6,7 @@ def check(data: dict):
         list_data = json.load(f2)
     for value in data:
         for item in list_data:
-            if value['Name'] == item['Name']:
+            if value['DownloadLinkInstall'] == item['DownloadLinkInstall']:
                 if value['AssemblyVersion'] != item['AssemblyVersion']:
                     print("Update Available: ["+ value['Name'] +"] Current: --"+ item["AssemblyVersion"] + "-- New: --" + value['AssemblyVersion'] +"--")
                     item["Status"] = "Update Avaliable"

@@ -5,7 +5,8 @@ from interface import*
 from modiflyPlugin import*
 from export import*
 from tkinter.scrolledtext import ScrolledText
-
+import sys
+import webbrowser as wb
 class MyButton(Button):
 
     def __init__(self, *args, **kwargs):
@@ -16,8 +17,21 @@ class MyButton(Button):
         self['activebackground']='#003380'
         self['activeforeground']='#aaffaa'
         self['width'] = 10
+class PrintLogger(object):  # create file like object
 
+    def __init__(self, textbox):  # pass reference to text widget
+        self.textbox = textbox  # keep ref
+
+    def write(self, text):
+        self.textbox.configure(state="normal")  # make field editable
+        self.textbox.insert("end", text)  # write text to textbox
+        self.textbox.see("end")  # scroll to end
+        self.textbox.configure(state="disabled")  # make field readonly
+
+    def flush(self):  # needed for file like object
+        pass
 class myGui2(Tk):
+
     def __init__(self):
         self.switchTrigger = False
         super().__init__()
@@ -26,25 +40,28 @@ class myGui2(Tk):
         # self = Tk()
         self.title('Installation Manager')
         # root.geometry("1x400")
-        self.treeview = ttk.Treeview(self, show="headings", columns=("Name", "AssemblyVersion", "LastUpdate","Status"),selectmode ='browse')
+        self.treeview = ttk.Treeview(self, show="headings", columns=("Name", "AssemblyVersion", "LastUpdate","Status","Author","No.URL"),selectmode ='browse')
         self.treeview.heading("#1", text="Name")
         self.treeview.heading("#2", text="Version")
         self.treeview.heading("#3", text="LastUpdate")
         self.treeview.heading("#4", text="Status")
+        self.treeview.heading("#5", text="Author")
+        self.treeview.heading("#6", text="No.URL")
         self.treeview.grid(row=0, column=1, columnspan = 4, rowspan = 1, padx = 2, pady = 5)
         self.verscrlbar = ttk.Scrollbar(self, orient ="vertical", command = self.treeview.yview)
-        self.verscrlbar.grid(row = 0,column=5,rowspan = 1)
+        self.verscrlbar.grid(row = 0,column=6,rowspan = 1)
         self.treeview.configure(xscrollcommand = self.verscrlbar.set)
 
         for row in DATA1:
-            self.treeview.insert("", "end", values=(row["Name"], row["AssemblyVersion"], row["LastUpdate"], row["Status"]))
+            self.treeview.insert("", "end", values=(row["Name"], row["AssemblyVersion"], row["LastUpdate"], row["Status"], row["Author"], row["No.URL"], row["DownloadLinkInstall"]))
 
         def selectItem(a):#  Select item by clicking treeview
             curItem = self.treeview.focus()
             # print(self.treeview.item(curItem))
             itemNameTemp = self.treeview.item(curItem)
-            if itemNameTemp['values'] != "":
-                self.selectedItem = str(itemNameTemp['values'][0])
+            # if itemNameTemp['values'] != "":
+            #     self.selectedItem = str(itemNameTemp['values'][0])
+            self.selectedItem = {"Name": str(itemNameTemp['values'][0]),"AssemblyVersion": str(itemNameTemp['values'][1]),"DownloadLinkInstall": str(itemNameTemp['values'][6])}
         
         self.treeview.bind('<ButtonRelease-1>', selectItem)
 
@@ -81,22 +98,49 @@ class myGui2(Tk):
         b5 = MyButton(self, text="Add",command=lambda : self.addToResource())
         b6 = MyButton(self, text="Remove",command=lambda : self.removeFromResource())
         b_back = MyButton(self, text="<Back>",command=lambda : self.switchWindow1())
+        b_openLink= MyButton(self, text="<Open>",command=lambda : self.openLink())
+        b_openLink.config(activebackground="#33cc33",bg = "#248f24")
         
         # b7 = MyButton(self, text="Export",command=lambda : export())
         # b7.config(bg="#33cc33",activebackground="#248f24")
-        b_back.grid(row=1, column=0, pady=3)
-        b1.grid(row=1, column=1, pady=3)
-        b2.grid(row=1, column=2, pady=3)
-        b3.grid(row=1, column=3, pady=3)
-        b4.grid(row=1, column=4, pady=3)
-        b5.grid(row=1, column=7, pady=3,padx=3)
-        b6.grid(row=1, column=6, pady=3,padx=3)
-        # b7.grid(row=8, column=0, pady=3,padx=2)
-        self.textBox.grid(row=1, column=8, pady=3)
+        b_back.grid(row=2, column=0, pady=3,padx=3)
+        b1.grid(row=2, column=1, pady=3,padx=5)
+        b2.grid(row=2, column=2, pady=3,padx=10)
+        b3.grid(row=2, column=3, pady=3,padx=15)
+        b4.grid(row=2, column=4, pady=3)
+        b6.grid(row=1, column=6, pady=1,padx=3)#remove
+        b_openLink.grid(row=1, column=8, pady=1,padx=3)
+        self.textBox.grid(row=2, column=7, pady=1)#input
+        b5.grid(row=2, column=8, pady=1,padx=3)#add
         # self.textBox2.grid(row=6, column=0, pady=3)
+        self.log_widget = ScrolledText(self, height=5, width=197, font=("consolas", "8", "normal"))
+        self.log_widget.grid(row=1, column=1, columnspan= 4,pady=3)
+        self.redirect_logging()
+
     def switchWindow1(self):
         self.switchTrigger = True
-        self.destroy()    
+        self.reset_logging()
+        self.destroy()
+    
+    def reset_logging(self):
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
+        sys.stderr = sys.__stderr__
+
+    def test_print(self):
+        print("Am i working?")
+
+    def redirect_logging(self):
+        logger = PrintLogger(self.log_widget)
+        sys.stdout = logger
+        sys.stderr = logger
+
+    def test_print(self):
+        print("Am i working?")
+
+    def openLink(self):
+        wb.open_new_tab(self.selectedItem2)
+
     def addToResource(self):
         addJson(self.textBox.get())
         self.refreshTree()
@@ -105,13 +149,13 @@ class myGui2(Tk):
         self.refreshTree()
 
     def addPluginFromInstallation(self):
-        modiflyWithName("json/avaliablePlugins.json","Name",self.selectedItem,"Status","Installed")
-        addPlugin(self.selectedItem)
+        modiflyWithKey("json/avaliablePlugins.json","DownloadLinkInstall",self.selectedItem.get('DownloadLinkInstall',"NULL"),"Status","Installed")
+        addPluginTest(self.selectedItem)
         self.refreshTree()
 
     def removeFromInstallation(self):
-        modiflyWithName("json/avaliablePlugins.json","Name",self.selectedItem,"Status","/")
-        popPlugin(self.selectedItem)
+        modiflyWithKey("json/avaliablePlugins.json","DownloadLinkInstall",self.selectedItem.get('DownloadLinkInstall',"NULL"),"Status","/")
+        popPluginTest(self.selectedItem)
         self.refreshTree()
 
     def checkAndRefresh(self): 
@@ -127,7 +171,7 @@ class myGui2(Tk):
         for item in self.treeview.get_children():
             self.treeview.delete(item)
         for row in DATA1:
-            self.treeview.insert("", "end", values=(row["Name"], row["AssemblyVersion"], row["LastUpdate"], row["Status"]))
+            self.treeview.insert("", "end", values=(row["Name"], row["AssemblyVersion"], row["LastUpdate"], row["Status"], row["Author"], row["No.URL"], row["DownloadLinkInstall"]))
         DATA2 = getResourceListData()
         for item in self.treeview2.get_children():
             self.treeview2.delete(item)

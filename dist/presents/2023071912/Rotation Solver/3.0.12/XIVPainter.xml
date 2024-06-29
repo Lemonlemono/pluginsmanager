@@ -1,0 +1,906 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XIVPainter</name>
+    </assembly>
+    <members>
+        <member name="T:XIVPainter.DrawingExtensions">
+            <summary>
+            A static class for drawing extension.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.Normalize(System.Numerics.Vector2@)">
+            <summary>
+            Normalize the <seealso cref="T:System.Numerics.Vector2"/> safely.
+            </summary>
+            <param name="vec">the vector to normalize</param>
+            <returns>is successfull.</returns>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.CanSee(System.Numerics.Vector3)">
+            <summary>
+            Can the point be seen by the active camera.
+            </summary>
+            <param name="point">testing point in world.</param>
+            <returns>can be seen.</returns>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.IsPointInside(System.Numerics.Vector3,System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Numerics.Vector3}})">
+            <summary>
+            Is the point inside the polygon
+            </summary>
+            <param name="pt">testing point</param>
+            <param name="pts">polygon</param>
+            <returns>is Inside</returns>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.IsPointInside(System.Numerics.Vector2,System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Numerics.Vector2}})">
+            <summary>
+            Is the point inside the polygon
+            </summary>
+            <param name="pt">testing point</param>
+            <param name="pts">polygon</param>
+            <returns>is Inside</returns>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.GetClosestPoint(System.Numerics.Vector3,System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Numerics.Vector3}})">
+            <summary>
+            Get the closest point to the polygon.
+            </summary>
+            <param name="pt">testing point</param>
+            <param name="pts">polygon</param>
+            <returns>closest point</returns>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.OffSetPolyline(System.Collections.Generic.IEnumerable{System.Numerics.Vector3[]},System.Single)">
+            <summary>
+            Offset the polygon
+            </summary>
+            <param name="pts">polygon</param>
+            <param name="offset">distance to offset</param>
+            <returns>offseted polygon</returns>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.OffSetPolyline(System.Numerics.Vector3[],System.Single)">
+            <summary>
+            Offset the polygon
+            </summary>
+            <param name="pts">polygon</param>
+            <param name="offset">distance to offset</param>
+            <returns>offseted polygon</returns>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.ConvexPoints(System.Numerics.Vector2[])">
+            <summary>
+            ConvexDecomposition
+            </summary>
+            <param name="points">concave polygon</param>
+            <returns>convex polygons</returns>
+        </member>
+        <member name="M:XIVPainter.DrawingExtensions.EaseFuncRemap(XIVPainter.EaseFuncType,XIVPainter.EaseFuncType)">
+            <summary>
+            Get the ease function by <seealso cref="T:XIVPainter.EaseFuncType"/>
+            </summary>
+            <param name="inType">input type</param>
+            <param name="outType">output type</param>
+            <returns>function</returns>
+        </member>
+        <member name="T:XIVPainter.EaseFuncType">
+            <summary>
+            Ease function type.
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.None">
+            <summary>
+            Line
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Sine">
+            <summary>
+            <see href="https://easings.net#easeInSine">In</see>,
+            <see href="https://easings.net#easeOutSine">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Quad">
+            <summary>
+            <see href="https://easings.net#easeInQuad">In</see>,
+            <see href="https://easings.net#easeOutQuad">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Cubic">
+            <summary>
+            <see href="https://easings.net#easeInCubic">In</see>,
+            <see href="https://easings.net#easeOutCubic">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Quart">
+            <summary>
+            <see href="https://easings.net#easeInQuart">In</see>,
+            <see href="https://easings.net#easeOutQuart">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Quint">
+            <summary>
+            <see href="https://easings.net#easeInQuint">In</see>,
+            <see href="https://easings.net#easeOutQuint">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Expo">
+            <summary>
+            <see href="https://easings.net#easeInExpo">In</see>,
+            <see href="https://easings.net#easeOutExpo">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Circ">
+            <summary>
+            <see href="https://easings.net#easeInCirc">In</see>,
+            <see href="https://easings.net#easeOutCirc">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Back">
+            <summary>
+            <see href="https://easings.net#easeInBack">In</see>,
+            <see href="https://easings.net#easeOutBack">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Elastic">
+            <summary>
+            <see href="https://easings.net#easeInElastic">In</see>,
+            <see href="https://easings.net#easeOutElastic">Out</see>
+            </summary>
+        </member>
+        <member name="F:XIVPainter.EaseFuncType.Bounce">
+            <summary>
+            <see href="https://easings.net#easeInBounce">In</see>,
+            <see href="https://easings.net#easeOutBounce">Out</see>
+            </summary>
+        </member>
+        <member name="T:XIVPainter.Element2D.IDrawing2D">
+            <summary>
+            2D drawing element.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element2D.IDrawing2D.Draw">
+            <summary>
+            Draw on the <seealso cref="T:ImGuiNET.ImGui"/>
+            </summary>
+        </member>
+        <member name="T:XIVPainter.Element2D.ImageDrawing">
+            <summary>
+            Drawing the image.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element2D.ImageDrawing.#ctor(System.IntPtr,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.Numerics.Vector2,System.UInt32)">
+            <summary>
+            
+            </summary>
+            <param name="textureId"></param>
+            <param name="pt1"></param>
+            <param name="pt2"></param>
+            <param name="uv1"></param>
+            <param name="uv2"></param>
+            <param name="col"></param>
+        </member>
+        <member name="M:XIVPainter.Element2D.ImageDrawing.#ctor(System.IntPtr,System.Numerics.Vector2,System.Numerics.Vector2,System.UInt32)">
+            <summary>
+            
+            </summary>
+            <param name="textureId"></param>
+            <param name="pt1"></param>
+            <param name="pt2"></param>
+            <param name="col"></param>
+        </member>
+        <member name="M:XIVPainter.Element2D.ImageDrawing.Draw">
+            <summary>
+            Draw on the <seealso cref="T:ImGuiNET.ImGui"/>
+            </summary>
+        </member>
+        <member name="T:XIVPainter.Element2D.PolylineDrawing">
+            <summary>
+            Polyline drawing.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element2D.PolylineDrawing.#ctor(System.Numerics.Vector2[],System.UInt32,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="pts"></param>
+            <param name="color"></param>
+            <param name="thickness"></param>
+        </member>
+        <member name="M:XIVPainter.Element2D.PolylineDrawing.Draw">
+            <summary>
+            Draw on the <seealso cref="T:ImGuiNET.ImGui"/>
+            </summary>
+        </member>
+        <member name="T:XIVPainter.Element2D.TextDrawing">
+            <summary>
+            Text drawing.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element2D.TextDrawing.#ctor(System.Numerics.Vector2,System.UInt32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="pt"></param>
+            <param name="color"></param>
+            <param name="text"></param>
+        </member>
+        <member name="M:XIVPainter.Element2D.TextDrawing.Draw">
+            <summary>
+            Draw on the <seealso cref="T:ImGuiNET.ImGui"/>
+            </summary>
+        </member>
+        <member name="T:XIVPainter.Element2D.TextDrawingFont">
+            <summary>
+            Text drawing with font.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element2D.TextDrawingFont.#ctor(System.Numerics.Vector2,System.UInt32,System.String,ImGuiNET.ImFontPtr,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="pt"></param>
+            <param name="color"></param>
+            <param name="text"></param>
+            <param name="font"></param>
+            <param name="fontSize"></param>
+        </member>
+        <member name="M:XIVPainter.Element2D.TextDrawingFont.Draw">
+            <summary>
+            Draw on the <seealso cref="T:ImGuiNET.ImGui"/>
+            </summary>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3D">
+            <summary>
+            Basic drawing 2d element.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3D.Color">
+            <summary>
+            The color of drawing. It always be the foreground color.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3D.AlphaRatio">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3D.DeadTime">
+            <summary>
+            The time that it will disappear.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3D.UpdateEveryFrame">
+            <summary>
+            What should it do every frame.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3D.AnimationRatio">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3D.To2D(XIVPainter.XIVPainter)">
+            <summary>
+            Convert this to the 2d elements.
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3D.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DAnnulus">
+            <summary>
+            The annulus drawing.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulus.Center">
+            <summary>
+            The drawing center.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulus.Radius1">
+            <summary>
+            The radius 1 of annulus.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulus.Radius2">
+            <summary>
+            The radius 2 of annulus.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulus.ArcStartSpan">
+            <summary>
+            The arc start span.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DAnnulus.#ctor(System.Numerics.Vector3,System.Single,System.Single,System.UInt32,System.Single,System.Numerics.Vector2[])">
+            <summary>
+            
+            </summary>
+            <param name="center"></param>
+            <param name="radius1"></param>
+            <param name="radius2"></param>
+            <param name="color"></param>
+            <param name="thickness"></param>
+            <param name="arcStartSpan"></param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DAnnulus.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DAnnulusO">
+            <summary>
+            The annulus drawing binding by a <seealso cref="T:Dalamud.Game.ClientState.Objects.Types.GameObject"/>.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulusO.Including">
+            <summary>
+            The type of hit radius adding.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulusO.RadiusTarget1">
+            <summary>
+            The radius 1
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulusO.RadiusTarget2">
+            <summary>
+            The radius 2
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulusO.Target">
+            <summary>
+            The binding target
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DAnnulusO.ArcStartSpanTarget">
+            <summary>
+            Arc start, span.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DAnnulusO.#ctor(Dalamud.Game.ClientState.Objects.Types.GameObject,System.Single,System.Single,System.UInt32,System.Single,XIVPainter.Enum.RadiusInclude,System.Numerics.Vector2[])">
+            <summary>
+            
+            </summary>
+            <param name="target"></param>
+            <param name="radius1"></param>
+            <param name="radius2"></param>
+            <param name="color"></param>
+            <param name="thickness"></param>
+            <param name="include"></param>
+            <param name="arcStartSpan"></param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DAnnulusO.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DCircularSector">
+            <summary>
+            The circular sector drawing.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DCircularSector.Center">
+            <summary>
+            The drawing center.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DCircularSector.Radius">
+            <summary>
+            The radius of circular sector.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DCircularSector.ArcStartSpan">
+            <summary>
+            The arc start span.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DCircularSector.#ctor(System.Numerics.Vector3,System.Single,System.UInt32,System.Single,System.Numerics.Vector2[])">
+            <summary>
+            
+            </summary>
+            <param name="center"></param>
+            <param name="radius"></param>
+            <param name="color"></param>
+            <param name="thickness"></param>
+            <param name="arcStartSpan"></param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DCircularSector.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DCircularSectorO">
+            <summary>
+            The circular sector drawing binding by a <seealso cref="T:Dalamud.Game.ClientState.Objects.Types.GameObject"/>.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DCircularSectorO.Including">
+            <summary>
+            The type of hit radius adding.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DCircularSectorO.RadiusTarget">
+            <summary>
+            The radius of target.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DCircularSectorO.Target">
+            <summary>
+            The binding target
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DCircularSectorO.ArcStartSpanTarget">
+            <summary>
+            Arc start, span.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DCircularSectorO.#ctor(Dalamud.Game.ClientState.Objects.Types.GameObject,System.Single,System.UInt32,System.Single,XIVPainter.Enum.RadiusInclude,System.Numerics.Vector2[])">
+            <summary>
+            
+            </summary>
+            <param name="target"></param>
+            <param name="radius"></param>
+            <param name="color"></param>
+            <param name="thickness"></param>
+            <param name="include"></param>
+            <param name="arcStartSpan"></param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DCircularSectorO.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DHighlightLine">
+            <summary>
+            The element that can show the location that the player should go.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DHighlightLine.From">
+            <summary>
+            The position where it from
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DHighlightLine.To">
+            <summary>
+            The position where it to
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DHighlightLine.Radius">
+            <summary>
+            Highlight circle radius
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DHighlightLine.Thickness">
+            <summary>
+            The thickness of curve.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DHighlightLine.#ctor(System.Numerics.Vector3,System.Numerics.Vector3,System.Single,System.UInt32,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="from"></param>
+            <param name="to"></param>
+            <param name="radius"></param>
+            <param name="color"></param>
+            <param name="thickness"></param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DHighlightLine.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DImage">
+            <summary>
+            The 3d drawing element for image.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DImage.Position">
+            <summary>
+            The position to draw.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DImage.ImageID">
+            <summary>
+            <seealso cref="T:ImGuiNET.ImGui"/> handle for texture.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DImage.Width">
+            <summary>
+            Drawing width
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DImage.Height">
+            <summary>
+            Drawing Height
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DImage.MustInViewRange">
+            <summary>
+            The Image must be in range.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DImage.HideIfInvisiable">
+            <summary>
+            If the <see cref="P:XIVPainter.Element3D.Drawing3DImage.Position"/> can't be seen, it'll not be shown.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DImage.#ctor(ImGuiScene.TextureWrap,System.Numerics.Vector3,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="wrap">texture</param>
+            <param name="position">potsition</param>
+            <param name="size">size ratio</param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DImage.#ctor(System.IntPtr,System.Numerics.Vector3,System.Single,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="imageId">Imgui handle</param>
+            <param name="position">position</param>
+            <param name="width">drawing width</param>
+            <param name="height">drawing height</param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DImage.SetTexture(ImGuiScene.TextureWrap,System.Single)">
+            <summary>
+            Set the new texture.
+            </summary>
+            <param name="wrap">texture</param>
+            <param name="size">size ratio</param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DImage.To2D(XIVPainter.XIVPainter)">
+            <summary>
+            Convert this to the 2d elements.
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DPoly">
+            <summary>
+            A set of drawings
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DPoly.SubItems">
+            <summary>
+            The sub items.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DPoly.To2D(XIVPainter.XIVPainter)">
+            <summary>
+            Convert this to the 2d elements.
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DPoly.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DPolyline">
+            <summary>
+            The polygon element.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DPolyline.InsideColor">
+            <summary>
+            If the player is inside of this, what the color it should be.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DPolyline.Thickness">
+            <summary>
+            The thickness of curve.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DPolyline.IsFill">
+            <summary>
+            Should it be filled.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DPolyline.IsMouseInside">
+            <summary>
+            Whether the mouse is within the drawing range.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DPolyline.PolylineType">
+            <summary>
+            The type of it, you can set it for moving suggestion.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DPolyline.BorderPoints">
+            <summary>
+            The border of polyline.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DPolyline.FillPoints">
+            <summary>
+            The fill of polygon.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DPolyline.#ctor(System.Collections.Generic.IEnumerable{System.Numerics.Vector3},System.UInt32,System.Single)">
+            <summary>
+            
+            </summary>
+            <param name="pts"></param>
+            <param name="color"></param>
+            <param name="thickness"></param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DPolyline.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Numerics.Vector3}},System.UInt32,System.Single,System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Numerics.Vector3}})">
+            <summary>
+            
+            </summary>
+            <param name="borderPts"></param>
+            <param name="color"></param>
+            <param name="thickness"></param>
+            <param name="fillPoints"></param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DPolyline.To2D(XIVPainter.XIVPainter)">
+            <summary>
+            Convert this to the 2d elements.
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DPolyline.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.Element3D.Drawing3DText">
+            <summary>
+            The text drawing.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DText.Text">
+            <summary>
+            The text it should show.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DText.Position">
+            <summary>
+            The location of showing.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.Drawing3DText.HideIfInvisible">
+            <summary>
+            Should it hides if the <seealso cref="P:XIVPainter.Element3D.Drawing3DText.Position"/> can't be seen by the active camera.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DText.#ctor(System.String,System.Numerics.Vector3)">
+            <summary>
+            
+            </summary>
+            <param name="text"></param>
+            <param name="position"></param>
+        </member>
+        <member name="M:XIVPainter.Element3D.Drawing3DText.To2D(XIVPainter.XIVPainter)">
+            <summary>
+            Convert this to the 2d elements.
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XIVPainter.Element3D.IDrawing3D">
+            <summary>
+            3D drawing element.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.IDrawing3D.Color">
+            <summary>
+            The color of drawing. It always be the foreground color.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.IDrawing3D.UpdateEveryFrame">
+            <summary>
+            What should it do every frame.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.Element3D.IDrawing3D.DeadTime">
+            <summary>
+            The time that it will disappear.
+            </summary>
+        </member>
+        <member name="T:XIVPainter.ElementSpecial.DrawingHighlightHotbar">
+            <summary>
+            The hotbar highlight drawing.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.ElementSpecial.DrawingHighlightHotbar.ActionIds">
+            <summary>
+            The action ids that 
+            </summary>
+        </member>
+        <member name="P:XIVPainter.ElementSpecial.DrawingHighlightHotbar.Color">
+            <summary>
+            The color of highlight.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.ElementSpecial.DrawingHighlightHotbar.#ctor(System.Numerics.Vector4,System.UInt32[])">
+            <summary>
+            
+            </summary>
+            <param name="color">Color</param>
+            <param name="ids">action ids</param>
+        </member>
+        <member name="M:XIVPainter.ElementSpecial.DrawingHighlightHotbar.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:XIVPainter.ElementSpecial.DrawingHighlightHotbar.To2D(XIVPainter.XIVPainter)">
+            <summary>
+            Convert this to the 2d elements.
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XIVPainter.ElementSpecial.DrawingHighlightHotbar.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="T:XIVPainter.ElementSpecial.IDrawing">
+            <summary>
+            Drawing element
+            </summary>
+        </member>
+        <member name="M:XIVPainter.ElementSpecial.IDrawing.UpdateOnFrame(XIVPainter.XIVPainter)">
+            <summary>
+            The things that can be done in the task.
+            </summary>
+            <param name="painter"></param>
+        </member>
+        <member name="M:XIVPainter.ElementSpecial.IDrawing.To2D(XIVPainter.XIVPainter)">
+            <summary>
+            Convert this to the 2d elements.
+            </summary>
+            <param name="owner"></param>
+            <returns></returns>
+        </member>
+        <member name="T:XIVPainter.Enum.PolylineType">
+            <summary>
+            Type of polygon for moving suggestion.
+            </summary>
+        </member>
+        <member name="F:XIVPainter.Enum.PolylineType.None">
+            <summary>
+            It is a normal polygon.
+            </summary>
+        </member>
+        <member name="F:XIVPainter.Enum.PolylineType.ShouldGoIn">
+            <summary>
+            The player should go into this polygon.
+            </summary>
+        </member>
+        <member name="F:XIVPainter.Enum.PolylineType.ShouldGoOut">
+            <summary>
+            The player should go out from this polygon.
+            </summary>
+        </member>
+        <member name="T:XIVPainter.Enum.RadiusInclude">
+            <summary>
+            The type of the radius addition.
+            </summary>
+        </member>
+        <member name="F:XIVPainter.Enum.RadiusInclude.None">
+            <summary>
+            Do not add anything.
+            </summary>
+        </member>
+        <member name="F:XIVPainter.Enum.RadiusInclude.IncludeTarget">
+            <summary>
+            Add the hit radius of the target.
+            </summary>
+        </member>
+        <member name="F:XIVPainter.Enum.RadiusInclude.IncludePlayer">
+            <summary>
+            Add the hit radius of the player.
+            </summary>
+        </member>
+        <member name="F:XIVPainter.Enum.RadiusInclude.IncludeBoth">
+            <summary>
+            Add the hit radius of the target and the player.
+            </summary>
+        </member>
+        <member name="T:XIVPainter.XIVPainter">
+            <summary>
+            The painter for FFXIV in Dalamud.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.Enable">
+            <summary>
+            Enable this <seealso cref="T:XIVPainter.XIVPainter"/>
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.RemovePtsNotOnGround">
+            <summary>
+            if the points of the polyline is not on the ground, remove it.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.DrawingHeight">
+            <summary>
+            The height of drawing in the world for making the polyline on the ground.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.SampleLength">
+            <summary>
+            The length of sample, please don't set this too low!
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.TimeToDisappear">
+            <summary>
+            How long should the animation of disappearing be in second.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.DisappearType">
+            <summary>
+            The ease function type of disappearing.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.WarningTime">
+            <summary>
+            The time of warning.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.WarningRatio">
+            <summary>
+            How much alpha value should be changed when warning.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.WarningType">
+            <summary>
+            The ease function type for warning.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.MovingSuggestionColor">
+            <summary>
+            The color of moving suggestion.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.MovingSuggestion">
+            <summary>
+            Should it show the moving suggestions.
+            </summary>
+        </member>
+        <member name="P:XIVPainter.XIVPainter.MovingSuggestionOffset">
+            <summary>
+            The offset of the polygon that it should go.
+            </summary>
+        </member>
+        <member name="M:XIVPainter.XIVPainter.Create(Dalamud.Plugin.DalamudPluginInterface,System.String)">
+            <summary>
+            The way to create this.
+            </summary>
+            <param name="pluginInterface"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:XIVPainter.XIVPainter.Dispose">
+            <summary>
+            Don't forget to dispose this!
+            </summary>
+        </member>
+        <member name="M:XIVPainter.XIVPainter.AddDrawings(XIVPainter.ElementSpecial.IDrawing[])">
+            <summary>
+            Add the drawings to the list.
+            </summary>
+            <param name="drawings">drawings</param>
+        </member>
+        <member name="M:XIVPainter.XIVPainter.RemoveDrawings(XIVPainter.ElementSpecial.IDrawing[])">
+            <summary>
+            Remove the drawings from the list.
+            </summary>
+            <param name="drawings">drawings</param>
+        </member>
+    </members>
+</doc>

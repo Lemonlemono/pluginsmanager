@@ -7,7 +7,7 @@ def update(data: dict):
         list_data = json.load(f2)
     for value in data:
         for item in list_data:
-            if value['Name'] == item['Name']:
+            if value['DownloadLinkInstall'] == item['DownloadLinkInstall']:
                 if value['AssemblyVersion'] != item['AssemblyVersion']:
                     print("Updated "+ value['Name'] +" From "+ item["AssemblyVersion"] + " To " + value['AssemblyVersion'])
                     item['AssemblyVersion'] = value['AssemblyVersion']
@@ -33,17 +33,12 @@ def resetStatus():
     f2.close()
 
 def updateAll():
-    # path_to_json_files = 'json/'
-    # #get all JSON file names as a list
-    # json_file_names = [filename for filename in os.listdir(path_to_json_files) if filename.endswith('.json')]
 
-    # for json_file_name in json_file_names:
-    #     with open(os.path.join(path_to_json_files, json_file_name)) as json_file:
-    #         json_text = json.load(json_file)
-    #         update(json_text)
+    print("Resetting status")
     resetStatus()
     f = open('json/resourceList.json')
     data = json.load(f)
+    print("Fetching data")
     for value in data:
         url = value['Url']
         print("json/Checking the url: "+ url)
