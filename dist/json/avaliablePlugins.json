@@ -3,7 +3,7 @@
         "Name": "LazyLoot",
         "AssemblyVersion": "5.2.0.5",
         "LastUpdate": "2024-02-25",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "Taurenkey, Gidedin",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/9/LazyLoot/versions/latest.zip",
         "No.URL": 1
@@ -12,7 +12,7 @@
         "Name": "Saucy",
         "AssemblyVersion": "1.3.0.6",
         "LastUpdate": "2024-06-03",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "Taurenkey",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/7/Saucy/versions/latest.zip",
         "No.URL": 1
@@ -21,7 +21,7 @@
         "Name": "Pandora's Box",
         "AssemblyVersion": "1.5.4.9",
         "LastUpdate": "2024-04-07",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "Taurenkey, croizat",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/8/PandorasBox/versions/latest.zip",
         "No.URL": 1
@@ -39,7 +39,7 @@
         "Name": "Yes Already",
         "AssemblyVersion": "1.6.3.5",
         "LastUpdate": "2024-06-18",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "daemitus, kawaii",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/26/YesAlready/versions/latest.zip",
         "No.URL": 1
@@ -48,7 +48,7 @@
         "Name": "Splatoon",
         "AssemblyVersion": "3.4.1.3",
         "LastUpdate": "2024-03-22",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "NightmareXIV, kawaii",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/10/Splatoon/versions/latest.zip",
         "No.URL": 1
@@ -57,7 +57,7 @@
         "Name": "Artisan",
         "AssemblyVersion": "3.0.5.16",
         "LastUpdate": "2024-06-20",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "Taurenkey, kawaii",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/6/Artisan/versions/latest.zip",
         "No.URL": 1
@@ -66,7 +66,7 @@
         "Name": "AutoRetainer",
         "AssemblyVersion": "4.3.0.5",
         "LastUpdate": "2024-06-16",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "kawaii, NightmareXIV",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/24/AutoRetainer/versions/latest.zip",
         "No.URL": 1
@@ -75,7 +75,7 @@
         "Name": "Avarice",
         "AssemblyVersion": "2.0.3.9",
         "LastUpdate": "2023-11-08",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "kawaii, NightmareXIV",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/11/Avarice/versions/latest.zip",
         "No.URL": 1
@@ -93,7 +93,7 @@
         "Name": "Palace Pal",
         "AssemblyVersion": "4.9.0.0",
         "LastUpdate": "2023-12-02",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "kawaii",
         "DownloadLinkInstall": "https://puni.sh/api/plugins/download/32/PalacePal/versions/latest.zip",
         "No.URL": 1
@@ -165,7 +165,7 @@
         "Name": "TextAdvance",
         "AssemblyVersion": "3.2.2.2",
         "LastUpdate": "2024-06-17",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "NightmareXIV",
         "DownloadLinkInstall": "https://github.com/NightmareXIV/TextAdvance/releases/download/3.2.2.2/latest.zip",
         "No.URL": 3
@@ -174,7 +174,7 @@
         "Name": "AntiAfkKick",
         "AssemblyVersion": "2.1.0.5",
         "LastUpdate": "2023-10-05",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "NightmareXIV",
         "DownloadLinkInstall": "https://github.com/NightmareXIV/AntiAfkKick/releases/download/2.1.0.5/latest.zip",
         "No.URL": 3
@@ -246,7 +246,7 @@
         "Name": "Fake Name",
         "AssemblyVersion": "1.2.0",
         "LastUpdate": "1970-01-01",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "ArchiTed",
         "DownloadLinkInstall": "https://github.com/ArchiDog1998/FakeName/releases/download/v1.2.0/latest.zip",
         "No.URL": 4
@@ -255,7 +255,7 @@
         "Name": "Rotation Solver",
         "AssemblyVersion": "5.0.3",
         "LastUpdate": "1970-01-01",
-        "Status": "Installed",
+        "Status": "/",
         "Author": "ArchiTed",
         "DownloadLinkInstall": "https://github.com/ArchiDog1998/RotationSolver/releases/download/v5.0.3/latest.zip",
         "No.URL": 4

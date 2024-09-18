@@ -90,8 +90,9 @@ def checkSingleJson(data: dict,ord: int):
             epoch = int(epoch)/1000
         datetime_obj=datetime.fromtimestamp(int(epoch)).strftime('%Y-%m-%d')
         for value2 in installedPlugin:
-            if value['DownloadLinkInstall']== value2['DownloadLinkInstall']:
-                Status="Installed"
+            if value['Name']== value2['Name']:
+                if value['DownloadLinkInstall']== value2['DownloadLinkInstall']:
+                    Status="Installed"
         y = {"Name": value.get('Name', "NULL"), "AssemblyVersion": value.get('AssemblyVersion', "NULL"), "LastUpdate": str(datetime_obj), "Status": Status, "Author": value.get('Author', "NULL"), "DownloadLinkInstall": value.get('DownloadLinkInstall', "NULL"),"No.URL":ord}
         write_json(y,"json/avaliablePlugins.json")
         print(value['Name']+" Added to List")

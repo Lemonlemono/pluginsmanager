@@ -1,9 +1,0 @@
-{
-  "Name": "AntiAfkKick",
-  "Author": "NightmareXIV",
-  "Description": "A Dalamud plugin for preventing being auto-kicked from FFXIV due to inactivity. Install and forget, no config needed.",
-  "RepoUrl": "https://github.com/NightmareXIV/AntiAfkKick",
-  "DalamudApiLevel": 8,
-  "AssemblyVersion": "2.1.0.3",
-  "InternalName": "AntiAfkKick-Dalamud"
-}
